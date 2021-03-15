@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>home</title>
+    </head>
+
+    <body>
+        <header></header>
+        <main>
+        <article>
+            <h1>Joke #<%= data.id %></h1>
+            <p><%= data.setup %></p>
+            <p><%= data.punchline %></p>
+          </article>
+          <aside>
+            <form action="/update/<%= data.id %>?_method=PUT" method="post">
+              <h2>Joke Id: <%= data.joke_id %></h2><br>
+              <h2>Joke Type: <%= data.type %></h2><br>
+              <textarea type="text" name="setup"><%= data.setup %></textarea>
+              <textarea type="text" name="punchline"><%= data.punchline %></textarea>
+            <button type="submit">update</button>
+            </form>
+            <form action="/delete/<%= data.id %>?_method=DELETE" method="post">
+            <button type="submit">Delete</button>
+            </form>
+         
+
+        </main>
+        <footer></footer>
+        </body>
+        </html>

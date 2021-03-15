@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>home</title>
+    </head>
+
+    <body>
+        <header></header>
+        <main>
+            <div class="cards">
+
+                <% data.forEach((val)=> { %>
+                    <p><%= val.setup %></p>
+                    <p><%= val.punchline %></p>
+
+
+                    <div class="card">
+                        <form action="/favorites" method="post">
+                            <input type="hidden" name="joke_id" value="<%= data.joke_id %>">
+                            <input type="hidden" name="type" value="<%= data.type %>">
+                            <input type="hidden" name="setup" value="<%= data.setup %>">
+                            <input type="hidden" name="punchline" value="<%= data.punchline %>">
+                            <button type="submit">Add to Fav</button>
+                            </form>
+                        </div>
+
+
+               <% }) %> 
+            </div>
+         
+
+        </main>
+        <footer></footer>
+        </body>
+        </html>

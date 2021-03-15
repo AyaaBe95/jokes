@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>home</title>
+    </head>
+
+    <body>
+        <header></header>
+        <main>
+            <% data.forEach(val =>{ %>
+                
+                <div class="card">
+
+                    <p>
+                     <%= val.setup %>
+                    </p>
+                    <p>
+                      <%= val.punchline %>
+                    </p>
+                </div>
+
+                <form action="/details/<%= data.id %>" method="get">
+                  <button type="submit">Details</button>
+                  </form>
+           <% }); %>   
+               
+         
+
+        </main>
+        <footer></footer>
+        </body>
+        </html>
