@@ -5,34 +5,42 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+
         <title>home</title>
     </head>
 
     <body>
-        <header></header>
+        <header>
+            
+        </header>
         <main>
-            <div class="cards">
-                <% data.forEach(val => { %>
-                    <h2>joke number #<%= val.idx%></h2>
-                    <p> Type: <%= val.type %> </p>
-                    <p> Setup: <%= val.setup %> </p>
-                    <p> Punchline: <%= val.punchline %> </p>
+            <section class="info">
 
-                    <form action="/favorites" method="POST" class="form">
-                        <input type="hidden" name="idx" value="<%= val.idx%>">
-                        <input type="hidden" name="type" value="<%= val.type %>">
-                        <input type="hidden" name="setup" value="<%= val.setup %>">
-                        <input type="hidden" name="punchline" value="<%= val.punchline %>">
-                        <input type="submit" value="Add to Fav">
+                    <% data.forEach(val => { %>
+                        <div>
 
-                    </form>
-
-                <% }) %>
+                        <h2>joke number #<%= val.idx%></h2>
+                        <p> Type: <%= val.type %> </p>
+                        <p> Setup: <%= val.setup %> </p>
+                        <p> Punchline: <%= val.punchline %> </p>
 
 
-            </div>
-         
-
+                            <form action="/favorites" method="POST" class="form">
+                                <input type="hidden" name="idx" value="<%= val.idx%>">
+                                <input type="hidden" name="type" value="<%= val.type %>">
+                                <input type="hidden" name="setup" value="<%= val.setup %>">
+                                <input type="hidden" name="punchline" value="<%= val.punchline %>">
+                                <input type="submit" value="Add to Fav">
+        
+                            </form>
+                        </div>
+    
+                    <% }) %>
+    
+    
+            </section>
+            
         </main>
         <footer></footer>
         </body>

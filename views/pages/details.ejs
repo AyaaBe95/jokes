@@ -5,28 +5,49 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+
         <title>home</title>
     </head>
 
     <body>
         <header></header>
         <main>
-        <article>
-          <p> Type: <%= data.type %></p>
-          <p>Setup: <%= data.setup %></p>
-            <p>Punchline: <%= data.punchline %></p>
-          </article>
-          <aside>
-            <form action="/update/<%= data.id %>?_method=PUT" method="post">
-              <textarea type="text" name="type"><%= data.type %></textarea>
-              <textarea type="text" name="setup"><%= data.setup %></textarea>
-              <textarea type="text" name="punchline"><%= data.punchline %></textarea>
-            <button type="submit">update</button>
-            </form>
-            <form action="/delete/<%= data.id %>?_method=DELETE" method="post">
-            <button type="submit">Delete</button>
-            </form>
-         
+
+            <section class="info">
+              <div>
+                <p> Type: <%= data.type %></p>
+                <p>Setup: <%= data.setup %></p>
+                  <p>Punchline: <%= data.punchline %></p>
+                
+              </div>
+
+              <div>
+                <form action="/update/<%= data.id %>?_method=PUT" method="post">
+                  <textarea type="text" name="type"><%= data.type %></textarea>
+                  <br>
+                  <br>
+                  <textarea type="text" name="setup"><%= data.setup %></textarea>
+                  <br>
+                  <br>
+                  <textarea type="text" name="punchline"><%= data.punchline %></textarea>
+                  <br>
+                  <br>
+                <button type="submit">update</button>
+                </form>
+                <form action="/delete/<%= data.id %>?_method=DELETE" method="post">
+                <button type="submit">Delete</button>
+                </form>
+
+              </div>
+            
+              
+    
+            </section>
+
+          
+        
+          
 
         </main>
         <footer></footer>

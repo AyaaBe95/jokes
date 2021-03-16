@@ -5,40 +5,47 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+
         <title>home</title>
     </head>
 
     <body>
         <header></header>
         <main>
-            <% data.forEach(val =>{ %>
-                
-                <div class="card">
 
-                    <p>
-                       Type: <%= val.type %>
-                      </p>
+            <section class="info">
 
-                    <p>
-                    Setup: <%= val.setup %>
-                    </p>
-                    <p>
-                    Punchline  <%= val.punchline %>
-                    </p>
 
-                    <form action="/details/<%= val.id %> " method="GET">
-                        <input type="submit" value="Details">
-
-                    </form>
-
-                    
-                </div>
-
-                
-           <% }); %>   
-               
+                    <% data.forEach(val =>{ %>
+                        <div>
+                            <p>
+                                Type: <%= val.type %>
+                               </p>
          
+                             <p>
+                             Setup: <%= val.setup %>
+                             </p>
+                             <p>
+                             Punchline:  <%= val.punchline %>
+                             </p>
+     
+             
+     
+                         <form action="/details/<%= val.id %> " method="GET">
+                             <input type="submit" value="Details">
+     
+                         </form>
+     
 
+                        </div>
+            
+                        
+                    <% }); %>  
+
+                </section>
+
+                
         </main>
         <footer></footer>
         </body>
