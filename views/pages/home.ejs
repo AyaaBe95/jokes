@@ -12,24 +12,24 @@
         <header></header>
         <main>
             <div class="cards">
+                <% data.forEach(val => { %>
+                    <h2>joke number #<%= val.idx%></h2>
+                    <p> Type: <%= val.type %> </p>
+                    <p> Setup: <%= val.setup %> </p>
+                    <p> Punchline: <%= val.punchline %> </p>
 
-                <% data.forEach((val)=> { %>
-                    <p><%= val.setup %></p>
-                    <p><%= val.punchline %></p>
+                    <form action="/favorites" method="POST" class="form">
+                        <input type="hidden" name="idx" value="<%= val.idx%>">
+                        <input type="hidden" name="type" value="<%= val.type %>">
+                        <input type="hidden" name="setup" value="<%= val.setup %>">
+                        <input type="hidden" name="punchline" value="<%= val.punchline %>">
+                        <input type="submit" value="Add to Fav">
+
+                    </form>
+
+                <% }) %>
 
 
-                    <div class="card">
-                        <form action="/favorites" method="post">
-                            <input type="hidden" name="joke_id" value="<%= data.joke_id %>">
-                            <input type="hidden" name="type" value="<%= data.type %>">
-                            <input type="hidden" name="setup" value="<%= data.setup %>">
-                            <input type="hidden" name="punchline" value="<%= data.punchline %>">
-                            <button type="submit">Add to Fav</button>
-                            </form>
-                        </div>
-
-
-               <% }) %> 
             </div>
          
 

@@ -12,14 +12,13 @@
         <header></header>
         <main>
         <article>
-            <h1>Joke #<%= data.id %></h1>
-            <p><%= data.setup %></p>
-            <p><%= data.punchline %></p>
+          <p> Type: <%= data.type %></p>
+          <p>Setup: <%= data.setup %></p>
+            <p>Punchline: <%= data.punchline %></p>
           </article>
           <aside>
             <form action="/update/<%= data.id %>?_method=PUT" method="post">
-              <h2>Joke Id: <%= data.joke_id %></h2><br>
-              <h2>Joke Type: <%= data.type %></h2><br>
+              <textarea type="text" name="type"><%= data.type %></textarea>
               <textarea type="text" name="setup"><%= data.setup %></textarea>
               <textarea type="text" name="punchline"><%= data.punchline %></textarea>
             <button type="submit">update</button>

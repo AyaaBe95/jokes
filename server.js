@@ -18,77 +18,86 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 
 //routes
-app.get('/',homeHndler);
-app.post('/favorites',addfavoritesHandler);
-app.get('/favorites',addfavoritesHandler2);
-app.get('/details/:id', detailsHandler);
-app.put('/update/:id', updateDetails);
-app.delete('/delete/:id', deleteCard);
+app.get('/',homeHandler);
+app.post('/favorites',favoritesHandler);
+app.get('/favorites',favoritesHandler2);
+app.get('/details/:id',detailsHandler);
+app.delete('/delete/:id',deleteHandler);
+app.put('/update/:id',updateHandler);
+
+
+
+
 
 
 
 
 //handler
-function homeHndler(req,res){
-    let url='https://official-joke-api.appspot.com/jokes/programming/ten';
-    superagent.get(url)
-    .then((data)=>{
-        let jokesData = data.body.map((item)=>{
-            return new Joke(item)
-        })
-
-        res.render('pages/home',{data:jokesData})
-        console.log(jokesData)
+function homeHandler(req,res){
+  let url='https://official-joke-api.appspot.com/jokes/programming/ten';
+  superagent.get(url)
+  .then((data)=>{
+    let jokeData= data.body.map((item)=>{
+      return new Joke(item);
     })
+    res.render('pages/home',{data:jokeData})
+  })
+}
 
+function favoritesHandler(req,res){
+  let {type,setup,punchline}=req.body;
+  let sql='INSERT INTO jokes (type,setup,punchline) VALUES ($1,$2,$3);';
+  let values=[type,setup,punchline];
+  client.query(sql,values)
+  .then((results)=>{
+    res.redirect('/favorites')
+  })
+}
+
+
+function favoritesHandler2(req,res){
+  let sql='SELECT * FROM jokes;';
+  client.query(sql)
+  .then((results)=>{
+    res.render('pages/favorites',{data:results.rows});
+  })
 
 }
 
-function addfavoritesHandler(req, res){
-    let {joke_id,type,setup,punchline}=req.body;
-    let SQL = 'INSERT INTO jokes (joke_id, type, setup, punchline) VALUES ($1, $2, $3, $4) RETURNING id; ';
-    let values=[joke_id,type,setup,punchline]
-
-    client.query(SQL, values).then(() => {
-      res.redirect('/favorites');
-    })
-  }
-  
-  function addfavoritesHandler2(req, res){
-    var SQL = 'SELECT * FROM jokes;';
-  
-    client.query(SQL).then(results => {
-        console.log(results.rows)
-      res.render('pages/favorites', {
-        data: results.rows
-});
-    })
-  }
-
-  function detailsHandler(req,res){
-    var sql = 'SELECT * FROM jokes WHERE id=$1;';
-    var values = [req.params.id];
-
-    client.query(sql,values)
-    .then((results)=>{
-        res.render('pages/details',{data:results.rows[0]});
-
-    })
-
+function detailsHandler(req,res){
+  let id=req.params.id;
+  let sql='SELECT * FROM jokes WHERE id=$1;';
+  let value=[id];
+  client.query(sql,value)
+  .then((results)=>{
+    res.render('pages/details',{data:results.rows[0]})
+  })
 }
 
-function updateDetails(req,res){
-
+function deleteHandler(req,res){
+  let id=req.params.id;
+  let sql='DELETE FROM jokes WHERE id=$1;';
+  let value=[id];
+  client.query(sql,value)
+  .then((results)=>{
+    res.redirect('/favorites')
+  })
 }
 
-function deleteCard(req,res){
-    
+function updateHandler(req,res){
+  let id=req.params.id;
+  let {type,setup,punchline}=req.body;
+  let sql='UPDATE jokes SET type=$1,setup=$2,punchline=$3 WHERE id=$4'
+  let values=[type,setup,punchline,id];
+  client.query(sql,values)
+  .then((results)=>{
+    res.redirect('/favorites')
+  })
 }
-
 
 //constructor
 function Joke(data) {
-    this.joke_id = data.id;
+  this.idx = data.id;
     this.type = data.type;
     this.setup = data.setup;
     this.punchline = data.punchline;
