@@ -24,6 +24,7 @@ app.get('/favorites',favoritesHandler2);
 app.get('/details/:id',detailsHandler);
 app.delete('/delete/:id',deleteHandler);
 app.put('/update/:id',updateHandler);
+app.get('/random',getRandomHandler);
 
 
 
@@ -92,6 +93,15 @@ function updateHandler(req,res){
   client.query(sql,values)
   .then((results)=>{
     res.redirect('/favorites')
+  })
+}
+
+function getRandomHandler(req,res){
+  let url='https://official-joke-api.appspot.com/jokes/programming/random';
+  superagent(url)
+  .then((data)=>{
+    let jokeData = new Joke(data.body[0]);
+    res.render('pages/random',{data:jokeData})
   })
 }
 
